@@ -33,7 +33,7 @@ export class ClienteService {
     return this.httpClient.put<any>('http://localhost:8080/api/cliente', request, this.httpOptions).pipe(map(res => res));
    }
 
-   deleteCliente(request: any): Observable<any>{
-    return this.httpClient.put<any>('http://localhost:8080/api/cliente', request, this.httpOptions).pipe(map(res => res));
+   deleteCliente(id_cliente: any): Observable<any>{
+    return this.httpClient.put<any>(`http://localhost:8080/api/cliente/delete/${id_cliente.id_cliente}`, this.httpOptions).pipe(map(res => res));
    }
 }
