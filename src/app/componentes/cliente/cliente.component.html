@@ -37,38 +37,46 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Nuevo Cliente</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form [formGroup]="formCliente">
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre"  autocomplete="usuario" formControlName="nombre">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre"  autocomplete="usuario" formControlName="nombre">
+                        </div>
+                    </div>   
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="dpi">DPI</label>
+                            <input type="text" class="form-control" name="dpi" id="dpi" required autocomplete="dpi" formControlName="dpi">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="telefono">Telefono</label>
+                            <input type="number" class="form-control" name="telefono" id="telefono" required formControlName="telefono">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="dpi">DPI</label>
-                        <input type="text" class="form-control" name="dpi" id="dpi" required autocomplete="dpi" formControlName="dpi">
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="direccion">Direccion</label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" required formControlName="direccion">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="telefono">Telefono</label>
-                        <input type="number" class="form-control" name="telefono" id="telefono" required formControlName="telefono">
-                    </div>
-                    <div class="form-group">
-                        <label for="direccion">Direccion</label>
-                        <input type="text" class="form-control" name="direccion" id="direccion" required formControlName="direccion">
-                    </div>
-                    <div class="form-group">
-                        <label for="nit">NIT</label>
-                        <input type="text" class="form-control" name="nit" id="nit" required formControlName="nit">
-                    </div>
-                    <div class="form-group">
-                        <label for="estado">Estado</label>
-                        <select class="form-select" name="estado" id="estado" required formControlName="estado">
-                            <option value="3">Seleccione un estado</option>
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
-                        </select>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="nit">NIT</label>
+                            <input type="text" class="form-control" name="nit" id="nit" required formControlName="nit">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="estado">Estado</label>
+                            <select class="form-select" name="estado" id="estado" required formControlName="estado">
+                                <option value="3">Seleccione un estado</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -91,34 +99,42 @@
             </div>
             <div class="modal-body">
                 <form [formGroup]="formCliente">
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre"  autocomplete="usuario" formControlName="nombre">
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre"  autocomplete="usuario" formControlName="nombre">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="dpi">DPI</label>
-                        <input type="text" class="form-control" name="dpi" id="dpi" required autocomplete="dpi" formControlName="dpi">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="dpi">DPI</label>
+                            <input type="text" class="form-control" name="dpi" id="dpi" required autocomplete="dpi" formControlName="dpi">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="telefono">Telefono</label>
+                            <input type="number" class="form-control" name="telefono" id="telefono" required formControlName="telefono">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="telefono">Telefono</label>
-                        <input type="number" class="form-control" name="telefono" id="telefono" required formControlName="telefono">
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="direccion">Direccion</label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" required formControlName="direccion">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="direccion">Direccion</label>
-                        <input type="text" class="form-control" name="direccion" id="direccion" required formControlName="direccion">
-                    </div>
-                    <div class="form-group">
-                        <label for="nit">NIT</label>
-                        <input type="text" class="form-control" name="nit" id="nit" required formControlName="nit">
-                    </div>
-                    <div class="form-group">
-                        <label for="estado">Estado</label>
-                        <select class="form-select" name="estado" id="estado" required formControlName="estado">
-                            <option value="3">Seleccione un estado</option>
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
-                        </select>
-                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="nit">NIT</label>
+                            <input type="text" class="form-control" name="nit" id="nit" required formControlName="nit">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="estado">Estado</label>
+                            <select class="form-select" name="estado" id="estado" required formControlName="estado">
+                                <option value="3">Seleccione un estado</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>                    
                 </form>
             </div>
             <div class="modal-footer">
@@ -143,6 +159,7 @@
                     <div class="" style="display: inline-block;">
                         <label id="lbEditar">¿Esta seguro que desea eliminar al cliente:</label>
                         <input type="text" id="hdnEliminar" name="hdnEliminar" style="border: none; pointer-events: none; vertical-align: middle;" formControlName="nombre"/>
+                        <label>?</label>
                         <input type="hidden" id="idEli" name="hdnId" formControlName="id_cliente"/>
                     </div>
                 </form>                
