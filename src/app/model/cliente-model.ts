@@ -1,5 +1,5 @@
 export class clienteModel{
-    id_cliente: number = 2;
+    id_cliente: number = 0;
     nombre: string = '';
     dpi: string = '';
     telefono: string = '';

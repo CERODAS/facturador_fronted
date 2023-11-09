@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { HeaderComponent } from './componentes/shared/header/header.component';
 import { FooterComponent } from './componentes/shared/footer/footer.component';
+import { UsuarioComponent } from './componentes/usuario/usuario.component';
 
 import { CategoriaComponent } from './componentes/categoria/categoria.component';
 import { ProductoComponent } from './componentes/producto/producto.component';
@@ -22,8 +23,8 @@ import { ProductoComponent } from './componentes/producto/producto.component';
     HeaderComponent,
     FooterComponent,
     CategoriaComponent,
-    ProductoComponent
-
+    ProductoComponent,
+    UsuarioComponent
   ],
   imports: [
     BrowserModule,
