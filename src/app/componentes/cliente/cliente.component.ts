@@ -95,10 +95,15 @@ export class ClienteComponent implements OnInit {
 
   selectDeleteCliente(item: any){
     this.formCliente.controls['nombre'].setValue(item.nombre);
-    this.formCliente.controls['id_cliente'].setValue(item.id_cliente);
   }
 
   eliminarCliente(){
+    this.formCliente.controls['estado'].setValue(false);
+    this.formCliente.controls['fecha_creacion'].setValue('2023-09-16 01:11:04');
+    this.formCliente.controls['usuario_creacion'].setValue('admon');
+    this.formCliente.controls['fecha_mod'].setValue('2023-09-16 01:11:04');
+    this.formCliente.controls['usuario_mod'].setValue('admon');
+    debugger;
     this.clienteService.deleteCliente(this.formCliente.value).subscribe(resp =>{
       if(resp){
         this.list();

@@ -7,15 +7,23 @@ import { ClienteComponent } from './componentes/cliente/cliente.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { HeaderComponent } from './componentes/shared/header/header.component';
 import { FooterComponent } from './componentes/shared/footer/footer.component';
+
+import { CategoriaComponent } from './componentes/categoria/categoria.component';
+import { ProductoComponent } from './componentes/producto/producto.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ClienteComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CategoriaComponent,
+    ProductoComponent
+
   ],
   imports: [
     BrowserModule,

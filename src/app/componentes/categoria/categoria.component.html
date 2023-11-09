@@ -1,0 +1,144 @@
+<div class="container">
+    <br>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="post">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLabel">Nueva Categoria</h1> 
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="formCategoria">
+
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                    formControlName="nombre" required
+                                    (blur)="onNombreBlur()" (focus)="resetField('nombre')" (click)="clearField('nombre')">
+                                    <div *ngIf="formCategoria.get('nombre')?.hasError('pattern')" class="error-message">Nombre no válido</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="rol">estado</label>
+                                <select class="form-select" name="estado" id="estado" formControlName="estado" required>
+                                    <option value="">seleccione estado</option>
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button class="btn btn-primary" type="button" (click)="guardarCategoria()" 
+                            data-bs-dismiss="modal"  [disabled]="!formCategoria.valid" >Registrarse</button>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Segundo modal de edición -->
+    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editModal2Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModal2Label">Editar Categoria</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="formCategoria">
+                        <div class="form-group">
+                            <label for="edit_nombre">Nombre</label>
+                            <input type="text" class="form-control" name="edit_nombre" id="edit_nombre2"
+                                formControlName="nombre" required
+                                (blur)="onNombreBlur()" (focus)="resetField('nombre')" (click)="clearField('nombre')">
+                                <div *ngIf="formCategoria.get('nombre')?.hasError('pattern')" class="error-message">Nombre no válido</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_estado">Estado</label>
+                            <select class="form-select" name="edit_estado" id="edit_estado2" formControlName="estado">
+                                <option value="3">Seleccione un estado</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" (click)="actualizarCategoria()"
+                        data-bs-dismiss="modal">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- tercer modal de eliminar -->
+    <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="editModal2Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModal2Label">Eliminar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Campos de edición para el segundo modal -->
+                    <form [formGroup]="formCategoria">
+
+                        <div class="form-group">
+                            <label id="mensaje">¿desea eliminar la categoria?</label>
+                            <input type="hidden" name="mEliminar" id="mensaje_id" formControlName="id_categoria">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" (click)="eliminarCategoria()"
+                        data-bs-dismiss="modal">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title" style="font-weight: bold; font-size: 20px;">Categoria de Productos</h1>
+            <button class="btn btn-primary" style="float: right;" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            (click)="nuevaCategoria()">Agregar Categoria</button>
+            <br>
+            <hr>
+            <table class="table table-hover table-bordered table-striped" id="tabla">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>nombre</th>
+                        <th>estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of listaCategoria">
+                        <td>{{item.id_categoria}}</td>
+                        <td>{{item.nombre}}</td>
+               
+                        <td *ngIf="item.estado === true">Activo</td>
+                        <td><button class="btn btn-primary btn-sm btnEditar" (click)="selectCategoria(item)"
+                                data-bs-toggle="modal" data-bs-target="#editarModal">Editar</button></td>
+                        <td><button class="btn btn-danger btn-sm btnEliminar" (click)="selectDeleteCategoria(item)"
+                                data-bs-toggle="modal" data-bs-target="#eliminarModal">Eliminar</button></td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

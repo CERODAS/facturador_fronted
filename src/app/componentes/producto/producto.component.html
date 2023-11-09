@@ -1,0 +1,194 @@
+<div class="container">
+    <br>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="formProducto">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre"  required formControlName="nombre"
+                            (blur)="onNombreBlur()" (focus)="resetField('nombre')" (click)="clearField('nombre')">
+                            <div *ngIf="formProducto.get('nombre')?.hasError('pattern')" class="error-message">Nombre no válido</div>
+
+                           
+                        </div>
+                        <div class="form-group">
+                            <label for="costo">costo</label>
+                            <input type="text" class="form-control" name="costo" id="costo" required formControlName="costo"
+                            (blur)="onCostoBlur()" (focus)="resetField('costo')" (click)="clearField('costo')">
+                            <div *ngIf="formProducto.get('costo')?.hasError('pattern')" class="error-message">Costo no válido</div>
+
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="unidades">unidades</label>
+                            <input type="text" class="form-control" name="unidades" id="unidades" required formControlName="unidades"
+                            (blur)="onUnidadesBlur()" (focus)="resetField('unidades')" (click)="clearField('unidades')">
+                            <div *ngIf="formProducto.get('unidades')?.hasError('pattern')" class="error-message">Unidades no válido</div>
+
+                           
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <select class="form-select" name="estado" id="estado" required formControlName="estado">
+                                <option value="3">Seleccione un estado</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" (click)="guardarProducto()" data-bs-dismiss="modal"  [disabled]="!formProducto.valid">Registrarse</button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- Segundo modal de edición -->
+    <div class="modal fade" id="editModal2" tabindex="-1" aria-labelledby="editModal2Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModal2Label">Editar Registro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Campos de edición para el segundo modal -->
+                    <form [formGroup]="formProducto">
+
+                        <div class="form-group">
+                            <label for="edit_fk_categoria">Categoría</label>
+                            <select class="form-select" name="edit_fk_categoria" id="edit_fk_categoria" f
+                                ormControlName="categoria" required>
+                                <option value="0">Selecciona una categoria</option>
+                                <!--- <?php foreach ($categorias as $categoria) : ?>
+                                    <option value="<?php echo $categoria->id_categoria; ?>"></option>
+                                <?php endforeach; ?>-->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit_nombre">Nombre</label>
+                            <input type="text" class="form-control" name="edit_nombre" id="edit_nombre"
+                                formControlName="nombre" required
+                                (blur)="onNombreBlur()" (focus)="resetField('nombre')" (click)="clearField('nombre')">
+                                <div *ngIf="formProducto.get('nombre')?.hasError('pattern')" class="error-message">Nombre no válido</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_costo">costo</label>
+                            <input type="text" class="form-control" name="edit_costo" id="edit_costo"
+                                formControlName="costo" required
+                                (blur)="onCostoBlur()" (focus)="resetField('costo')" (click)="clearField('costo')">
+                            <div *ngIf="formProducto.get('costo')?.hasError('pattern')" class="error-message">Costo no válido</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_unidades">unidades</label>
+                            <input type="text" class="form-control" name="edit_unidades" id="edit_unidades"
+                                formControlName="unidades" required      (blur)="onUnidadesBlur()" (focus)="resetField('unidades')" (click)="clearField('unidades')">
+                                <div *ngIf="formProducto.get('unidades')?.hasError('pattern')" class="error-message">Unidades no válido</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit_estado">Estado</label>
+                            <select class="form-select" name="edit_estado" id="edit_estado2" formControlName="estado">
+                                <option value="3">Seleccione un estado</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+
+                        <div class="from -group">
+                            <input type="hidden" id="Edi" name="id_producto">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" (click)="actualizarProducto()"
+                        data-bs-dismiss="modal" [disabled]="!formProducto.valid"> Guardar Cambios</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- tercer modal de eliminar -->
+    <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="editModal2Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModal2Label">Eliminar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="formProducto">
+                        <div class="">
+                            <label id="mensaje">¿desea eliminar el producto </label>
+                            <input type="text" id="hdnEliminar" name="hdnEliminar" style="border: none; pointer-events: none; vertical-align: middle;" formControlName="nombre"/>
+                            <label>?</label>
+                            <input type="hidden" id="idEli" name="hdnId" formControlName="id_producto"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary"(click)="eliminarProducto()" data-bs-dismiss="modal" >Eliminar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title" style="font-weight: bold; font-size: 20px">Productos</h1>
+        <button class="btn btn-primary" style="float: right;" data-bs-toggle="modal"
+            data-bs-target="#exampleModal" (click)="nuevoProducto()">Agregar Producto</button>
+        <br>
+        <hr>
+        <table class="table table-hover table-bordered table-striped" id="tabla">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Costo</th>
+                    <th>Unidades</th>
+                    <th>Estado</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let item of listProducto">
+                    <td>{{item.nombre}}</td>
+                    <td>{{item.costo}}</td>
+                    <td>{{item.unidades}}</td>
+                 
+                    <td *ngIf="item.estado === true">Activo</td>
+                    <td><button class="btn btn-primary btn-sm btn-editar"(click)="selectProducto(item)" data-bs-toggle="modal"  data-bs-target="#editModal2">Editar</button></td>
+                    <td><button class="btn btn-danger btn-sm btn-eliminar" (click)="selectDeleteProducto(item)" data-bs-toggle="modal" data-bs-target="#eliminarModal">Eliminar</button></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
