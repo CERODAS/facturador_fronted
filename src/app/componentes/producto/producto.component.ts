@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { productoModel } from 'src/app/model/producto.model';
 import { ProductoService } from 'src/app/service/producto.service';
 import { FormGroup, FormControl,Validators  } from '@angular/forms';
+import { CategoriaService } from 'src/app/service/categoria.service';
+import { CategoriaModel } from 'src/app/model/categoria.model';
 
 @Component({
   selector: 'app-producto',
@@ -11,9 +13,10 @@ import { FormGroup, FormControl,Validators  } from '@angular/forms';
 export class ProductoComponent implements OnInit {
 
   listProducto: productoModel[] = [];
+  categorias: CategoriaModel[] = [];
   formProducto: FormGroup = new FormGroup({});
 
-  constructor(private productoService: ProductoService) { }
+  constructor(private productoService: ProductoService,private categoriaService: CategoriaService) { }
 
   // Propiedades para mensajes de error
   nombreError: string = '';
@@ -25,12 +28,13 @@ export class ProductoComponent implements OnInit {
   
   ngOnInit(): void {
     this.list();
+    this.cargarCategorias();
     this.formProducto  = new FormGroup({
       id_producto: new FormControl(''),
       fk_categoria: new FormControl(''),
       nombre: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^[a-zA-Z]+( [a-zA-Z]+)*$/)
+        Validators.pattern(/^[a-zA-Z0-9]+( [a-zA-Z0-9]+)*$/)
       ]),
       costo: new FormControl('', [
         Validators.required,
@@ -58,6 +62,11 @@ export class ProductoComponent implements OnInit {
     })
   }
   
+  cargarCategorias() {
+    this.categoriaService.getCatetoria().subscribe(categorias => {
+      this.categorias = categorias;
+    });
+  }
 // Funciones para validar y mostrar mensajes de error
 
 

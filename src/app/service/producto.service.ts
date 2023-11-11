@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { productoModel } from '../model/producto.model'; 
 
+import { CategoriaModel } from '../model/categoria.model';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -35,5 +36,10 @@ export class ProductoService {
    deleteProducto(id_producto: any): Observable<any>{
     return this.httpClient.put<any>(`http://localhost:8080/api/producto/delete/${id_producto.id_producto}`, this.httpOptions).pipe(map(res => res));
    }
+
+
+   getCategorias(): Observable<CategoriaModel[]> {
+    return this.httpClient.get<CategoriaModel[]>('http://localhost:8080/api/categoria').pipe(map(res => res));
+  }
 
 }

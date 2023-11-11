@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { usuarioModel } from '../model/usuario-model';
 import { Observable, map } from 'rxjs';
-import { rolesModel } from '../model/roles-model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,5 @@ export class UsuarioService {
     return this.httpClient.put<any>(`http://localhost:8080/api/usuario/delete/${id_usuario.id_usuario}`, this.httpOptions).pipe(map(res => res));
    }
 
-   getRoles(): Observable<rolesModel[]>{
-    return this.httpClient.get<rolesModel[]>('http://localhost:8080/api/rol/get').pipe(map(res => res));
-   }
+
 }

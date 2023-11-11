@@ -12,10 +12,20 @@
                 <div class="modal-body">
                     <form [formGroup]="formProducto">
                         <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre"  required formControlName="nombre"
-                            (blur)="onNombreBlur()" (focus)="resetField('nombre')" (click)="clearField('nombre')">
-                            <div *ngIf="formProducto.get('nombre')?.hasError('pattern')" class="error-message">Nombre no válido</div>
+                            <label for="edit_fk_categoria">Categoría</label>
+                            <select class="form-select" name="edit_fk_categoria" id="edit_fk_categoria" f
+                                ormControlName="categoria" required>
+                                <option value="0">Selecciona una categoria</option>
+                                <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">
+                                    {{ categoria.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre"  required formControlName="nombre"
+                        (blur)="onNombreBlur()" (focus)="resetField('nombre')" (click)="clearField('nombre')">
+                        <div *ngIf="formProducto.get('nombre')?.hasError('pattern')" class="error-message">Nombre no válido</div>
 
                            
                         </div>
@@ -39,11 +49,11 @@
                         <div class="form-group">
                             <label for="estado">Estado</label>
                             <select class="form-select" name="estado" id="estado" required formControlName="estado">
-                                <option value="3">Seleccione un estado</option>
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                             </select>
                         </div>
+                        
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -75,13 +85,10 @@
                     <form [formGroup]="formProducto">
 
                         <div class="form-group">
-                            <label for="edit_fk_categoria">Categoría</label>
-                            <select class="form-select" name="edit_fk_categoria" id="edit_fk_categoria" f
+                            <label for="edit_categoria">Categoría</label>
+                            <select class="form-select" name="edit_categoria" id="edit_categoria" f
                                 ormControlName="categoria" required>
                                 <option value="0">Selecciona una categoria</option>
-                                <!--- <?php foreach ($categorias as $categoria) : ?>
-                                    <option value="<?php echo $categoria->id_categoria; ?>"></option>
-                                <?php endforeach; ?>-->
                             </select>
                         </div>
 
@@ -109,7 +116,7 @@
                         <div class="form-group">
                             <label for="edit_estado">Estado</label>
                             <select class="form-select" name="edit_estado" id="edit_estado2" formControlName="estado">
-                                <option value="3">Seleccione un estado</option>
+                              
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                             </select>
@@ -131,11 +138,11 @@
     </div>
 
     <!-- tercer modal de eliminar -->
-    <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="editModal2Label" aria-hidden="true">
+    <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="eliminarModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModal2Label">Eliminar</h5>
+                    <h5 class="modal-title" id="eliminarModal">Eliminar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

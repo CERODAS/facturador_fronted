@@ -85,19 +85,21 @@
                         <div class="form-group col-md-6">
                             <label for="rol">Estado</label>
                             <select class="form-select" name="estado" id="estado" required formControlName="estado">
-                                <option value="-2">Seleccione un estado</option>
+                             
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-12">
+                                    
+                        <div class="form-group col-md-12" >
                             <label for="rol">Rol</label>
-                            <select class="form-select" name="fk_rol" id="rol" required formControlName="fk_rol">
-                                <option value="-2">Seleccion un rol</option>
-                                <option value="1">Activo</option>
-                                <option value="0">Inactivo</option>
+                            <select class="form-select" name="fk_rol" id="fk_rol" formControlName="fk_rol" required>
+                          
+                                <option *ngFor="let rol of roles" [value]="rol.id_rol">
+                                    {{ rol.nombre_rol }}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -169,10 +171,10 @@
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="rol">Rol</label>
-                            <select class="form-select" name="fk_rolEdit" id="rolEdit" required formControlName="fk_rol">
-                                <option value="-2">Seleccion un rol</option>
-                                <option value="1">Activo</option>
-                                <option value="0">Inactivo</option>
+                            <select class="form-select" name="rol" id="rol" required formControlName="fk_rol">
+                                <option *ngFor="let rol of roles" [value]="rol.id_rol">
+                                    {{ rol.nombre_rol }}
+                                </option>
                             </select>
                         </div>
                     </div>

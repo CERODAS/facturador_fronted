@@ -2,6 +2,8 @@ import { Component, OnInit,Injectable  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { usuarioModel } from 'src/app/model/usuario-model';
 import { UsuarioService } from 'src/app/service/usuario.service';
+import { rolesModel } from 'src/app/model/roles-model';
+import { RolesService } from 'src/app/service/roles.service';
 
 
 
@@ -18,10 +20,11 @@ import { UsuarioService } from 'src/app/service/usuario.service';
 export class UsuarioComponent implements OnInit {
 
   listUsuario: usuarioModel[] = [];
+  roles: rolesModel[] = [];
   formUsuario: FormGroup = new FormGroup({});
   
 
-  constructor(private usuarioService: UsuarioService){}
+  constructor(private usuarioService: UsuarioService, private rolesServices: RolesService){}
 
   cifrarPass(pass: string): Promise<string> {
     const buffer = new TextEncoder().encode(pass);
@@ -43,6 +46,7 @@ export class UsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.list();
+    this.loadRoles();
     this.formUsuario = new FormGroup({
       id_usuario: new FormControl(''),
       fk_rol: new FormControl(''),
@@ -67,7 +71,8 @@ export class UsuarioComponent implements OnInit {
       usuario_creacion: new FormControl(''),
       fecha_mod: new FormControl(''),
       usuario_mod: new FormControl(''),
-      estado: new FormControl('')
+      estado: new FormControl(''),
+      rol: new FormControl('', Validators.required)
     });
   }
  
@@ -77,6 +82,14 @@ export class UsuarioComponent implements OnInit {
         this.listUsuario = resp;
       }
     })
+  }
+
+  loadRoles() {
+    this.rolesServices.getRoles().subscribe(resp => {
+      if (resp) {
+        this.roles = resp;
+      }
+    });
   }
 
   onUsuarioBlur() {
