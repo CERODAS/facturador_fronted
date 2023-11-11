@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="card" style="margin-top: 10px; width: 760x;">
+        <div class="card-body">
+            <h3 style="text-align: center; font-weight: bold;">Módulo de Ventas</h3>
+            <hr>            
+            <div class="row">      
+                <div class="col-md-6">
+                    <div class="row">
+                        <form [formGroup]="formFactura">
+                            <div class="form-group">
+                                <label for="numNit">Buscar cliente por Nit:</label>
+                                <input type="text" class="col-md-5" style="margin-top: 5px; margin-right: 20px;" formControlName="nit" name="numNit" id="NIT"> 
+                                <button type="button" value="Buscar" class="btn btn-primary" (click)="buscarPorNit()" id="btn-buscar" >Buscar</button>
+                            </div> 
+                        </form>
+                    </div>
+                    <div class="row">
+                        <form [formGroup]="formFactura">
+                            <div class="form-group">
+                                <label for="fk_producto">Producto</label>    
+                                <select class="form-select col-md-8" id="fk_producto" required>
+                                    <option value="0">Selecciona un producto</option>
+                                    <option *ngFor="let prod of listProducto" [value]="prod.id_producto">
+                                        {{ prod.nombre }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="unidades">Unidades Disponibles</label>
+                                <input type="text" class="form-control" name="unidades" id="unidades" required required>
+                            </div>
+                            <div class="form-group">
+                                <label for="costo">Precio por unidad</label>
+                                <input type="text" class="form-control" name="costo" id="costo" required required>
+                            </div>
+                            <div class="form-group">
+                                <label for="V_unidades">Unidades Venta</label>
+                                <input type="text" class="form-control" name="V_unidades" id="V_unidades" >
+                            </div>
+                        </form>                     
+                    </div>
+                    <button  type="button" class="btn btn-primary" id="btn-agregar" disabled>Agregar</button>
+                </div>
+
+                <div class="col-md-6">
+                        <br>
+                        <h5>Datos del cliente</h5>
+                        <hr>
+                        <form [formGroup]="formFactura">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <label for="NombreCliente">Nombre</label>
+                                    <input type="text" class="col-md-12" style="width:100%" name="NombreCliente" formControlName="nombre" id="NombreCliente">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="NitCliente">NIT</label>
+                                    <input type="text" class="col-md-12" style="width:100%" name="NitCliente" formControlName="nit" id="NitCliente"> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <label for="Factura">No.Factura</label>
+                                    <input type="text" name="Factura" style="width:100%" id="Factura" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Usuario">Usuario</label>
+                                    <input type="text" style="width:100%" name="Usuario" id="Usuario" disabled>
+                                </div>
+                            </div>
+                        </form>                        
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5>Detalles del Producto vendido</h5>
+                            </div>
+                            <div class="col-md-12">
+                                <div tabla-container>
+                                    <table  id="tabla">
+                                        <thead>
+                                            <tr>
+                                                <th>Cantidad</th>
+                                                <th hidden>id_producto</th>
+                                                <th>Descripcion</th>
+                                                <th>Precio Unitario</th>
+                                                <th>Subtotal</th>
+                                                <th>Elimnar</th>
+                                            </tr>
+                                        </thead>
+                                       
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <Label for="Total">Total</Label>
+                                <input type="text" name="Total" id="total" disabled>
+                            </div>
+                            <div>
+                                <input type="submit" class="btn btn-primary" value="Realizar Venta" id ="btn-genVenta" style="margin-right: 5px;" disabled/>
+                                <button type="button" class="btn btn-secondary" id="cancelar" disabled>Cancelar</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

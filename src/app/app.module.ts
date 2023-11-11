@@ -14,6 +14,7 @@ import { UsuarioComponent } from './componentes/usuario/usuario.component';
 
 import { CategoriaComponent } from './componentes/categoria/categoria.component';
 import { ProductoComponent } from './componentes/producto/producto.component';
+import { FacturaComponent } from './componentes/factura/factura.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ProductoComponent } from './componentes/producto/producto.component';
     FooterComponent,
     CategoriaComponent,
     ProductoComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    FacturaComponent
   ],
   imports: [
     BrowserModule,

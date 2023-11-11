@@ -11,3 +11,8 @@ export class clienteModel{
     usuario_mod: string = '';
     estado: boolean = false
 }
+
+export class clienteResponse{
+    nit: string = '';
+    nombre: string = '';
+}
