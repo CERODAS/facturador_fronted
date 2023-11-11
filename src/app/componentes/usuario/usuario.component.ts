@@ -1,30 +1,68 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit,Injectable  } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { usuarioModel } from 'src/app/model/usuario-model';
 import { UsuarioService } from 'src/app/service/usuario.service';
+
+
 
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css']
 })
+
+@Injectable({
+  providedIn: 'root'
+})
+
 export class UsuarioComponent implements OnInit {
 
   listUsuario: usuarioModel[] = [];
   formUsuario: FormGroup = new FormGroup({});
+  
 
   constructor(private usuarioService: UsuarioService){}
+
+  cifrarPass(pass: string): Promise<string> {
+    const buffer = new TextEncoder().encode(pass);
+
+    return crypto.subtle.digest('SHA-256', buffer)
+      .then(hashBuffer => {
+        // Convierte el búfer del hash a una cadena hexadecimal
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashedPass = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+        return hashedPass;
+      });
+  }
+  
+    // Propiedades para mensajes de error
+    nombreError: string = '';
+    costoError: string = '';
+    unidadesError: string = '';
+    isFormValid: boolean = true; 
 
   ngOnInit(): void {
     this.list();
     this.formUsuario = new FormGroup({
       id_usuario: new FormControl(''),
       fk_rol: new FormControl(''),
-      usuario: new FormControl(''),
+      usuario: new FormControl('',[
+        Validators.required,
+        Validators.pattern(/^.{4,8}$/)
+      ]),
       pass: new FormControl(''),
-      nombre: new FormControl(''),
-      telefono: new FormControl(''),
-      correo: new FormControl(''),
+      nombre: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z]+( [a-zA-Z]+)*$/)
+      ]),
+      telefono: new FormControl('',[
+        Validators.required,
+        Validators.pattern(/^[0-9]{8}$/)
+      ]),
+      correo: new FormControl('',[
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+      ]),
       fecha_creacion: new FormControl(''),
       usuario_creacion: new FormControl(''),
       fecha_mod: new FormControl(''),
@@ -41,31 +79,91 @@ export class UsuarioComponent implements OnInit {
     })
   }
 
+  onUsuarioBlur() {
+    const usuarioControl = this.formUsuario.get('usuario');
+    if (usuarioControl && usuarioControl.hasError('pattern')) {
+      this.formUsuario.controls['usuario'].setErrors({ 'pattern': true });
+      this.isFormValid = false; // Marcar el formulario como inválido
+    } else {
+      this.isFormValid = true; // Marcar el formulario como válido
+    }
+  }
+
+
+  onNombreBlur() {
+    const nombreControl = this.formUsuario.get('nombre');
+    if (nombreControl && nombreControl.hasError('pattern')) {
+      this.formUsuario.controls['nombre'].setErrors({ 'pattern': true });
+      this.isFormValid = false; // Marcar el formulario como inválido
+    } else {
+      this.isFormValid = true; // Marcar el formulario como válido
+    }
+  }
+
+  onTelefonoBlur() {
+    const telefonoControl = this.formUsuario.get('telefono');
+    if (telefonoControl && telefonoControl.hasError('pattern')) {
+      this.formUsuario.controls['telefono'].setErrors({ 'pattern': true });
+      this.isFormValid = false; // Marcar el formulario como inválido
+    } else {
+      this.isFormValid = true; // Marcar el formulario como válido
+    }
+  }
+
+  onCorreoBlur() {
+    const correoControl = this.formUsuario.get('correo');
+    if (correoControl && correoControl.hasError('pattern')) {
+      this.formUsuario.controls['correo'].setErrors({ 'pattern': true });
+      this.isFormValid = false; // Marcar el formulario como inválido
+    } else {
+      this.isFormValid = true; // Marcar el formulario como válido
+    }
+  }
+
+  
+
+  resetField(fieldName: string) {
+    this.formUsuario.controls[fieldName].setErrors(null);
+  }
+  
+  clearField(fieldName: string) {
+    this.formUsuario.get(fieldName)?.setValue(''); // Establece el valor del campo en blanco
+  }
+  
+  
   nuevoUsuario(){
     this.formUsuario.reset();
   }
 
-  guardarUsuario(){
-    if(this.formUsuario.value.estado == "1"){
+  guardarUsuario() {
+    if (this.formUsuario.value.estado == "1") {
       this.formUsuario.controls['estado'].setValue(true);
-    }else if(this.formUsuario.value.estado == "0"){
+    } else if (this.formUsuario.value.estado == "0") {
       this.formUsuario.controls['estado'].setValue(false);
     }
-
-    if(this.formUsuario.value.fk_rol == "1"){
+  
+    if (this.formUsuario.value.fk_rol == "1") {
       this.formUsuario.controls['fk_rol'].setValue(1);
-    }else if(this.formUsuario.value.fk_rol == 0){
+    } else if (this.formUsuario.value.fk_rol == 0) {
       this.formUsuario.controls['fk_rol'].setValue(2);
     }
-    debugger;
-    this.formUsuario.controls['fecha_creacion'].setValue('2023-09-16 01:11:04');
-    this.formUsuario.controls['usuario_creacion'].setValue('admon');
-    this.usuarioService.postUsuario(this.formUsuario.value).subscribe(resp =>{
-      if(resp){
-        this.list();
-        this.formUsuario.reset();
-      }
-    });
+    const fechaActual = new Date();
+    const fechaFormateada = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
+  
+    // Espera la resolución de la promesa antes de asignar el valor
+    this.cifrarPass(this.formUsuario.value.pass.toString())
+      .then((hashedPass: string) => {
+        this.formUsuario.controls['fecha_creacion'].setValue(fechaFormateada);
+        this.formUsuario.controls['usuario_creacion'].setValue('admon');
+        this.formUsuario.controls['pass'].setValue(hashedPass);
+  
+        this.usuarioService.postUsuario(this.formUsuario.value).subscribe(resp => {
+          if (resp) {
+            this.list();
+            this.formUsuario.reset();
+          }
+        });
+      });
   }
 
   selectUsuario(item: any){
@@ -81,32 +179,38 @@ export class UsuarioComponent implements OnInit {
       this.formUsuario.controls['estado'].setValue(0);
     }
   }
-
-  actualizarUsuario(){
-    if(this.formUsuario.value.estado == "1"){
+  actualizarUsuario() {
+    if (this.formUsuario.value.estado == "1") {
       this.formUsuario.controls['estado'].setValue(true);
-    }else if(this.formUsuario.value.estado == "0"){
+    } else if (this.formUsuario.value.estado == "0") {
       this.formUsuario.controls['estado'].setValue(false);
     }
-
-    if(this.formUsuario.value.fk_rol == "1"){
+  
+    if (this.formUsuario.value.fk_rol == "1") {
       this.formUsuario.controls['fk_rol'].setValue(1);
-    }else if(this.formUsuario.value.fk_rol == 0){
+    } else if (this.formUsuario.value.fk_rol == 0) {
       this.formUsuario.controls['fk_rol'].setValue(2);
     }
-    debugger;
-    this.formUsuario.controls['fecha_creacion'].setValue('2023-09-16 01:11:04');
-    this.formUsuario.controls['usuario_creacion'].setValue('admon');
-    this.formUsuario.controls['fecha_mod'].setValue('2023-09-16 01:11:04');
-    this.formUsuario.controls['usuario_mod'].setValue('admon');
-
-    this.usuarioService.putUsuario(this.formUsuario.value).subscribe(resp =>{
-      if(resp){
-        this.list();
-        this.formUsuario.reset();
-      }
-    });
-  }
+    const fechaActual = new Date();
+    const fechaFormateada = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
+  
+    // Espera la resolución de la promesa antes de asignar el valor
+    this.cifrarPass(this.formUsuario.value.pass.toString())
+      .then((hashedPass: string) => {
+        this.formUsuario.controls['fecha_creacion'].setValue(fechaFormateada);
+        this.formUsuario.controls['usuario_creacion'].setValue('admon');
+        this.formUsuario.controls['fecha_mod'].setValue(fechaFormateada);
+        this.formUsuario.controls['usuario_mod'].setValue('admon');
+        this.formUsuario.controls['pass'].setValue(hashedPass);
+  
+        this.usuarioService.putUsuario(this.formUsuario.value).subscribe(resp => {
+          if (resp) {
+            this.list();
+            this.formUsuario.reset();
+          }
+        });
+      });
+    }
 
   selectDeleteUsuario(item: any){
     this.formUsuario.controls['usuario'].setValue(item.usuario);
