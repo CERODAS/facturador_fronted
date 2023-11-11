@@ -18,21 +18,23 @@
                         <form [formGroup]="formFactura">
                             <div class="form-group">
                                 <label for="fk_producto">Producto</label>    
-                                <select class="form-select col-md-8" id="fk_producto" required>
+                                <select class="form-select col-md-8" id="fk_producto" required (change)="onSelectedChange($event)">
                                     <option value="0">Selecciona un producto</option>
                                     <option *ngFor="let prod of listProducto" [value]="prod.id_producto">
                                         {{ prod.nombre }}
                                     </option>
                                 </select>
+                                
                             </div>
                             <div class="form-group">
                                 <label for="unidades">Unidades Disponibles</label>
-                                <input type="text" class="form-control" name="unidades" id="unidades" required required>
+                                <input type="text" class="form-control" name="unidades" id="unidades" formControlName="unidades" required>
                             </div>
                             <div class="form-group">
                                 <label for="costo">Precio por unidad</label>
-                                <input type="text" class="form-control" name="costo" id="costo" required required>
+                                <input type="text" class="form-control" name="costo" id="costo" formControlName="costo" required>
                             </div>
+                            
                             <div class="form-group">
                                 <label for="V_unidades">Unidades Venta</label>
                                 <input type="text" class="form-control" name="V_unidades" id="V_unidades" >
@@ -57,6 +59,8 @@
                                     <input type="text" class="col-md-12" style="width:100%" name="NitCliente" formControlName="nit" id="NitCliente"> 
                                 </div>
                             </div>
+                            
+                          
                             <div class="row">
                                 <div class="col-md-7">
                                     <label for="Factura">No.Factura</label>

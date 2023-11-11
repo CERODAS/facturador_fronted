@@ -25,42 +25,74 @@ export class FacturaComponent implements OnInit{
     this.formFactura = new FormGroup({
       nombre: new FormControl(''),
       nit: new FormControl(''),
-      fk_producto: new FormControl('')
+      fk_producto: new FormControl(''),
+      unidades: new FormControl(''),  
+      costo: new FormControl('') ,
+      V_unidades: new FormControl(''), 
     });
   }
-
   buscarPorNit() {
-    const nitValue = this.formFactura.value;
+    const nitValue = this.formFactura.value.nit;
     if (!nitValue) {
-      console.error('El valor de nit es undefined o vacío.');
-      return;
+        console.error('El valor de nit es undefined o vacío.');
+        return;
     }
-  
+
     this.facturaService.buscarClientePorNit(nitValue).subscribe(resp => {
-      if (resp) {
-        console.log(resp);
-        this.listCliente = resp;
-        this.formFactura.patchValue({
-          nombre: { value: resp[0].nombre },
-          nit: { value: resp[0].nit },
-          // Puedes agregar otras propiedades aquí según sea necesario
-        });
-        this.formFactura.markAsPristine();
-        this.formFactura.markAsUntouched();
-      } else {
-        console.error('La respuesta del servicio no tiene la estructura esperada.');
-      }
+        if (resp && resp.length > 0) {
+            const cliente = resp[0]; // Obtener el primer cliente del array
+            console.log(cliente);
+            this.listCliente = [cliente]; // Puedes actualizar el array si es necesario
+            this.formFactura.patchValue({
+                nombre: { value: cliente.nombre },
+                nit: { value: cliente.nit },
+                // Puedes agregar otras propiedades aquí según sea necesario
+            });
+            this.formFactura.markAsPristine();
+            this.formFactura.markAsUntouched();
+        } else {
+            console.error('La respuesta del servicio no tiene la estructura esperada.');
+        }
     });
-  }
+}
 
   obtenerProducto(){
     this.productoService.getProducto().subscribe(resp => {
       this.listProducto = resp;
     })
   }
-
-  onSelectedChange(event: any){
+  
+  onSelectedChange(event: any) {
     const idProducto = event.target.value;
-    debugger;
-  }
+
+    // Buscar el producto seleccionado en la lista
+    const productoSeleccionado = this.listProducto.find(prod => prod.id_producto == idProducto);
+
+    // Verificar si se encontró el producto
+    if (productoSeleccionado) {
+        // Actualizar las unidades y el costo en el formulario
+        this.formFactura.patchValue({
+            unidades: productoSeleccionado.unidades,
+            costo: productoSeleccionado.costo,
+            // Otras propiedades según sea necesario
+        });
+
+        // Habilitar el botón y el input
+        this.formFactura.get('V_unidades')?.enable();
+        this.formFactura.get('fk_producto')?.enable();
+    } else {
+        // Limpiar las unidades y el costo si no se selecciona un producto válido
+        this.formFactura.patchValue({
+            unidades: null,
+            costo: null,
+            // Otras propiedades según sea necesario
+        });
+
+        // Deshabilitar el botón y el input
+        this.formFactura.get('V_unidades')?.disable();
+        this.formFactura.get('fk_producto')?.disable();
+    }
+}
+
+
 }

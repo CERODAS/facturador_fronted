@@ -3,7 +3,9 @@ import { productoModel } from 'src/app/model/producto.model';
 import { ProductoService } from 'src/app/service/producto.service';
 import { FormGroup, FormControl,Validators  } from '@angular/forms';
 import { CategoriaService } from 'src/app/service/categoria.service';
+
 import { CategoriaModel } from 'src/app/model/categoria.model';
+
 
 @Component({
   selector: 'app-producto',
