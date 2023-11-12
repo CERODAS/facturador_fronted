@@ -4,7 +4,7 @@ import { usuarioModel } from 'src/app/model/usuario-model';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { rolesModel } from 'src/app/model/roles-model';
 import { RolesService } from 'src/app/service/roles.service';
-
+import * as crypto from 'crypto-js';
 
 
 @Component({
@@ -25,17 +25,12 @@ export class UsuarioComponent implements OnInit {
   
 
   constructor(private usuarioService: UsuarioService, private rolesServices: RolesService){}
-
   cifrarPass(pass: string): Promise<string> {
-    const buffer = new TextEncoder().encode(pass);
-
-    return crypto.subtle.digest('SHA-256', buffer)
-      .then(hashBuffer => {
-        // Convierte el búfer del hash a una cadena hexadecimal
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashedPass = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-        return hashedPass;
-      });
+    return new Promise<string>((resolve, reject) => {
+      // Convierte la contraseña ingresada a SHA-1
+      const hashedPass = crypto.SHA1(pass).toString();
+      resolve(hashedPass);
+    });
   }
   
     // Propiedades para mensajes de error
