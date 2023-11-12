@@ -36,7 +36,6 @@ import { FacturaComponent } from './componentes/factura/factura.component';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

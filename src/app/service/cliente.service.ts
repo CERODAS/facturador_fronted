@@ -22,18 +22,18 @@ export class ClienteService {
   };
 
    getCliente(): Observable<clienteModel[]>{
-    return this.httpClient.get<clienteModel[]>('http://localhost:8081/api/cliente/consultar').pipe(map(res => res));
+    return this.httpClient.get<clienteModel[]>('http://localhost:8080/api/cliente/consultar').pipe(map(res => res));
    }
 
    postCliente(request: any): Observable<any>{
-    return this.httpClient.post<any>('http://localhost:8081/api/cliente/enviar', request, this.httpOptions).pipe(map(res => res));
+    return this.httpClient.post<any>('http://localhost:8080/api/cliente/enviar', request, this.httpOptions).pipe(map(res => res));
    }
 
    putCliente(request: any): Observable<any>{
-    return this.httpClient.put<any>('http://localhost:8081/api/cliente/actualizar', request, this.httpOptions).pipe(map(res => res));
+    return this.httpClient.put<any>('http://localhost:8080/api/cliente/actualizar', request, this.httpOptions).pipe(map(res => res));
    }
 
    deleteCliente(id_cliente: any): Observable<any>{
-    return this.httpClient.put<any>(`http://localhost:8081/api/cliente/borrar/${id_cliente.id_cliente}`, this.httpOptions).pipe(map(res => res));
+    return this.httpClient.put<any>(`http://localhost:8080/api/cliente/borrar/${id_cliente.id_cliente}`, this.httpOptions).pipe(map(res => res));
    }
 }

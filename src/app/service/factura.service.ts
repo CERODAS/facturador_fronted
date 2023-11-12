@@ -24,4 +24,12 @@ export class FacturaService {
   buscarProducto(): Observable<productoModel[]> {
     return this.httpCliente.get<productoModel[]>('http://localhost:8080/api/producto').pipe(map(res => res));
   }
+
+  insertarFactura(request: any): Observable<any>{
+    return this.httpCliente.post<any>('http://localhost:8080/api/factura/enviar', request, this.httpOptions).pipe(map(res => res));
+  }
+
+  insertarDetalle(request: any): Observable<any>{
+    return this.httpCliente.post<any>('http://localhost:8080/api/detalle/agregarDetalle', request, this.httpOptions).pipe(map(res => res));
+  }
 }

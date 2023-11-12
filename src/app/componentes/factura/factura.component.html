@@ -39,14 +39,13 @@
                                 <label for="costo">Precio por unidad</label>
                                 <input type="text" class="form-control" name="costo" id="costo" formControlName="costo" required>
                             </div>
-                            
-                            <div class="form-group">
-                                <label for="V_unidades">Unidades Venta</label>
-                                <input type="text" class="form-control" name="V_unidades" id="V_unidades" >
-                            </div>
-                        </form>                     
+                        </form>   
+                        <div class="form-group">
+                            <label for="V_unidades">Unidades Venta</label>
+                            <input type="text" class="form-control" name="V_unidades" id="V_unidades" [(ngModel)]="nuevoRegistro.cantidad">
+                        </div>
                     </div>
-                    <button  type="button" class="btn btn-primary" id="btn-agregar" disabled>Agregar</button>
+                    <button  type="button" class="btn btn-primary" (click)="agregarRegistro()" id="btn-agregar">Agregar</button>
                 </div>
 
                 <div class="col-md-6">
@@ -64,19 +63,14 @@
                                     <input type="text" class="col-md-12" style="width:100%" name="NitCliente" formControlName="nit" id="NitCliente"> 
                                 </div>
                             </div>
-                            
-                          
                             <div class="row">
                                 <div class="col-md-7">
                                     <label for="Factura">No.Factura</label>
-                                    <input type="text" name="Factura" style="width:100%" id="Factura" disabled>
+                                    <input type="text" name="Factura" style="width:100%" id="Factura" formControlName="noFactura">
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="Usuario">Usuario</label>
-                                    <input type="text" style="width:100%" name="Usuario" id="Usuario" disabled>
-                                </div>
-                            </div>
-                        </form>                        
+                            </div>  
+                        </form>
+                                      
                         <hr>
                         <div class="row">
                             <div class="col-md-10">
@@ -95,7 +89,16 @@
                                                 <th>Elimnar</th>
                                             </tr>
                                         </thead>
-                                       
+                                        <tbody>
+                                            <tr *ngFor="let registro of registros; let i = index">
+                                              <td>{{ registro.cantidad }}</td>
+                                              <td hidden>{{ registro.id_producto }}</td>
+                                              <td>{{ registro.descripcion }}</td>
+                                              <td>{{ registro.precio_unitario }}</td>
+                                              <td>{{ registro.subtotal }}</td>
+                                              <td><button class="btn btn-danger" (click)="eliminarRegistro(i)">Eliminar</button></td>
+                                            </tr>
+                                          </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -103,11 +106,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <Label for="Total">Total</Label>
-                                <input type="text" name="Total" id="total" disabled>
+                                <input type="text" name="Total" [(ngModel)]="total" id="total" disabled>
                             </div>
                             <div>
-                                <input type="submit" class="btn btn-primary" value="Realizar Venta" id ="btn-genVenta" style="margin-right: 5px;" disabled/>
-                                <button type="button" class="btn btn-secondary" id="cancelar" disabled>Cancelar</button>
+                                <button type="button" class="btn btn-primary" (click)="generarFactura()" value="Realizar Venta" id ="btn-genVenta" style="margin-right: 5px;"> Realizar Venta</button>
+                                <button type="button" class="btn btn-secondary" id="cancelar">Cancelar</button>
                             </div>
                         </div>
                 </div>

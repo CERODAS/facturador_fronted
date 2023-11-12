@@ -19,7 +19,7 @@ export class RolesService {
 
 
    getRoles(): Observable<rolesModel[]>{
-    return this.httpClient.get<rolesModel[]>('http://localhost:8081/api/rol/get').pipe(map(res => res));
+    return this.httpClient.get<rolesModel[]>('http://localhost:8080/api/rol/get').pipe(map(res => res));
    }
    
 
