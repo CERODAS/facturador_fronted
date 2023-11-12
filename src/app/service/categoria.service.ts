@@ -23,19 +23,19 @@ export class CategoriaService {
   };
 
   getCatetoria(): Observable<CategoriaModel[]>{
-    return this.httpClient.get<CategoriaModel[]>('http://localhost:8080/api/categoria').pipe(map(res=>res));
+    return this.httpClient.get<CategoriaModel[]>('http://localhost:8081/api/categoria').pipe(map(res=>res));
   } 
 
   postCategoria(request: any): Observable<any>{ 
     debugger;
-    return this.httpClient.post<any>('http://localhost:8080/api/categoria', request, this.httpOptions).pipe(map(res => res));
+    return this.httpClient.post<any>('http://localhost:8081/api/categoria', request, this.httpOptions).pipe(map(res => res));
   }
 
   putCategoria(request: any): Observable<any>{
-    return this.httpClient.put<any>('http://localhost:8080/api/categoria', request, this.httpOptions).pipe(map(res => res));
+    return this.httpClient.put<any>('http://localhost:8081/api/categoria', request, this.httpOptions).pipe(map(res => res));
   }
 
   deleteCategoria(id_categoria: any): Observable<any>{
-    return this.httpClient.put<any>(`http://localhost:8080/api/categoria/delete/${id_categoria.id_categoria}`, this.httpOptions).pipe(map(res => res));
+    return this.httpClient.put<any>(`http://localhost:8081/api/categoria/delete/${id_categoria.id_categoria}`, this.httpOptions).pipe(map(res => res));
    }
 }

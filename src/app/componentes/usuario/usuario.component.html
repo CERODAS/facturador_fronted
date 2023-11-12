@@ -1,4 +1,9 @@
-<div class="container">
+<div >
+    <app-header></app-header>
+
+</div>
+
+<div class="card" style="padding-left: 250px;">
     <div class="card">
         <div class="card-body">
             <h1 class="card-title" style="font-weight: bold; font-size: 20px;">Usuarios</h1>
@@ -13,7 +18,6 @@
                         <th>Telefono</th>
                         <th>Correo</th>
                         <th>Rol</th>
-                        <th>Estado</th>
                         <th></th>
                         <th></th> 
                     </tr>
@@ -25,7 +29,6 @@
                         <td>{{item.telefono}}</td>
                         <td>{{item.correo}}</td>
                         <td>{{item.fk_rol}}</td>
-                        <td *ngIf="item.estado == true">Activo</td>
                         <td><button class="btn btn-primary btn-sm btn-editar" (click)="selectUsuario(item)" data-bs-toggle="modal" data-bs-target="#editarUsuario">Editar</button></td>
                         <td><button class="btn btn-danger btn-sm btn-eliminar" (click)="selectDeleteUsuario(item)" data-bs-toggle="modal" data-bs-target="#eliminarModal">Eliminar</button></td>
                     </tr>
@@ -213,4 +216,7 @@
             </div>
         </div>
     </div>
+</div>
+<div>
+    <app-footer></app-footer>
 </div>

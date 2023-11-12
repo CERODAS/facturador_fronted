@@ -1,7 +1,13 @@
-<div class="card">
+<div >
+    <app-header></app-header>
+
+</div>
+
+<div class="card" style="padding-left: 250px;">
     <div class="card-body">
         <h1 class="card-title" style="font-weight: bold; font-size: 20px;">Clientes</h1>
-        <button class="btn btn-primary" style="float: right;" data-bs-toggle="modal" data-bs-target="#nuevoCliente" (click)="nuevoCliente()">Agregar Cliente</button>
+        <button class="btn btn-primary" style="float: right;" data-bs-toggle="modal" data-bs-target="#nuevoCliente"
+            (click)="nuevoCliente()">Agregar Cliente</button>
         <br>
         <hr>
         <table class="table table-hover table-bordered table-striped" id="tabla">
@@ -25,8 +31,10 @@
                     <td>{{item.direccion}}</td>
                     <td>{{item.nit}}</td>
                     <td *ngIf="item.estado === true">Activo</td>
-                    <td><button class="btn btn-primary btn-sm btnEditar" (click)="selectCliente(item)" data-bs-toggle="modal" data-bs-target="#editarModal">Editar</button></td>
-                    <td><button class="btn btn-danger btn-sm btnEliminar" (click)="selectDeleteCliente(item)" data-bs-toggle="modal" data-bs-target="#eliminarModal" >Eliminar</button></td>
+                    <td><button class="btn btn-primary btn-sm btnEditar" (click)="selectCliente(item)"
+                            data-bs-toggle="modal" data-bs-target="#editarModal">Editar</button></td>
+                    <td><button class="btn btn-danger btn-sm btnEliminar" (click)="selectDeleteCliente(item)"
+                            data-bs-toggle="modal" data-bs-target="#eliminarModal">Eliminar</button></td>
                 </tr>
             </tbody>
         </table>
@@ -45,38 +53,46 @@
                     <div class="row">
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre"  autocomplete="usuario" formControlName="nombre"
-                            (blur)="onNombreBlur()" (focus)="resetField('nombre')" (click)="clearField('nombre')">
-                            <div *ngIf="formCliente.get('nombre')?.hasError('pattern')" class="error-message">Nombre no válido</div>
+                            <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="usuario"
+                                formControlName="nombre" (blur)="onNombreBlur()" (focus)="resetField('nombre')"
+                                (click)="clearField('nombre')">
+                            <div *ngIf="formCliente.get('nombre')?.hasError('pattern')" class="error-message">Nombre no
+                                válido</div>
                         </div>
-                    </div>   
+                    </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="dpi">DPI</label>
-                            <input type="text" class="form-control" name="dpi" id="dpi" required autocomplete="dpi" formControlName="dpi"
-                            (blur)="onDpiBlur()" (focus)="resetField('dpi')" (click)="clearField('dpi')">
-                            <div *ngIf="formCliente.get('dpi')?.hasError('pattern')" class="error-message">Dpi no válido</div>
+                            <input type="text" class="form-control" name="dpi" id="dpi" required autocomplete="dpi"
+                                formControlName="dpi" (blur)="onDpiBlur()" (focus)="resetField('dpi')"
+                                (click)="clearField('dpi')">
+                            <div *ngIf="formCliente.get('dpi')?.hasError('pattern')" class="error-message">Dpi no válido
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="telefono">Telefono</label>
-                            <input type="text" class="form-control" name="telefono" id="telefono" required formControlName="telefono"
-                            (blur)="onTelefonoBlur()" (focus)="resetField('telefono')" (click)="clearField('telefono')">
-                            <div *ngIf="formCliente.get('telefono')?.hasError('pattern')" class="error-message">Telefono no válido</div>
+                            <input type="text" class="form-control" name="telefono" id="telefono" required
+                                formControlName="telefono" (blur)="onTelefonoBlur()" (focus)="resetField('telefono')"
+                                (click)="clearField('telefono')">
+                            <div *ngIf="formCliente.get('telefono')?.hasError('pattern')" class="error-message">Telefono
+                                no válido</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="direccion">Direccion</label>
-                            <input type="text" class="form-control" name="direccion" id="direccion" required formControlName="direccion"
-                            (focus)="resetField('direccion')" (click)="clearField('direccion')">
+                            <input type="text" class="form-control" name="direccion" id="direccion" required
+                                formControlName="direccion" (focus)="resetField('direccion')"
+                                (click)="clearField('direccion')">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="nit">NIT</label>
                             <input type="text" class="form-control" name="nit" id="nit" required formControlName="nit"
-                            (blur)="onNitBlur()" (focus)="resetField('nit')" (click)="clearField('nit')">
-                            <div *ngIf="formCliente.get('nit')?.hasError('pattern')" class="error-message">Nit no válido</div>>
+                                (blur)="onNitBlur()" (focus)="resetField('nit')" (click)="clearField('nit')">
+                            <div *ngIf="formCliente.get('nit')?.hasError('pattern')" class="error-message">Nit no válido
+                            </div>>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="estado">Estado</label>
@@ -91,8 +107,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" (click)="guardarCliente()" 
-                data-bs-dismiss="modal" [disabled]="!formCliente.valid">Registrarse</button>
+                <button type="submit" class="btn btn-primary" (click)="guardarCliente()" data-bs-dismiss="modal"
+                    [disabled]="!formCliente.valid">Registrarse</button>
 
 
             </div>
@@ -100,7 +116,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+<div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -114,38 +131,46 @@
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre"  autocomplete="usuario" formControlName="nombre"
-                            (blur)="onNombreBlur()" (focus)="resetField('nombre')" (click)="clearField('nombre')">
-                            <div *ngIf="formCliente.get('nombre')?.hasError('pattern')" class="error-message">Nombre no válido</div>
+                            <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="usuario"
+                                formControlName="nombre" (blur)="onNombreBlur()" (focus)="resetField('nombre')"
+                                (click)="clearField('nombre')">
+                            <div *ngIf="formCliente.get('nombre')?.hasError('pattern')" class="error-message">Nombre no
+                                válido</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="dpi">DPI</label>
-                            <input type="text" class="form-control" name="dpi" id="dpi" required autocomplete="dpi" formControlName="dpi"
-                            (blur)="onDpiBlur()" (focus)="resetField('dpi')" (click)="clearField('dpi')">
-                            <div *ngIf="formCliente.get('dpi')?.hasError('pattern')" class="error-message">Dpi no válido</div>
+                            <input type="text" class="form-control" name="dpi" id="dpi" required autocomplete="dpi"
+                                formControlName="dpi" (blur)="onDpiBlur()" (focus)="resetField('dpi')"
+                                (click)="clearField('dpi')">
+                            <div *ngIf="formCliente.get('dpi')?.hasError('pattern')" class="error-message">Dpi no válido
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="telefono">Telefono</label>
-                            <input type="text" class="form-control" name="telefono" id="telefono" required formControlName="telefono"
-                            (blur)="onTelefonoBlur()" (focus)="resetField('telefono')" (click)="clearField('telefono')">
-                            <div *ngIf="formCliente.get('telefono')?.hasError('pattern')" class="error-message">Telefono no válido</div>
+                            <input type="text" class="form-control" name="telefono" id="telefono" required
+                                formControlName="telefono" (blur)="onTelefonoBlur()" (focus)="resetField('telefono')"
+                                (click)="clearField('telefono')">
+                            <div *ngIf="formCliente.get('telefono')?.hasError('pattern')" class="error-message">Telefono
+                                no válido</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="direccion">Direccion</label>
-                            <input type="text" class="form-control" name="direccion" id="direccion" required formControlName="direccion"
-                            (focus)="resetField('direccion')" (click)="clearField('direccion')">
+                            <input type="text" class="form-control" name="direccion" id="direccion" required
+                                formControlName="direccion" (focus)="resetField('direccion')"
+                                (click)="clearField('direccion')">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="nit">NIT</label>
                             <input type="text" class="form-control" name="nit" id="nit" required formControlName="nit"
-                            (blur)="onNitBlur()" (focus)="resetField('nit')" (click)="clearField('nit')">
-                            <div *ngIf="formCliente.get('nit')?.hasError('pattern')" class="error-message">Nit no válido</div>>
+                                (blur)="onNitBlur()" (focus)="resetField('nit')" (click)="clearField('nit')">
+                            <div *ngIf="formCliente.get('nit')?.hasError('pattern')" class="error-message">Nit no válido
+                            </div>>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="estado">Estado</label>
@@ -155,19 +180,20 @@
                                 <option value="0">Inactivo</option>
                             </select>
                         </div>
-                    </div>                    
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" id="btnGuardarEditar" (click)="actualizarCliente()" 
-                data-bs-dismiss="modal" [disabled]="!formCliente.valid">Actualizar</button>
+                <button type="submit" class="btn btn-primary" id="btnGuardarEditar" (click)="actualizarCliente()"
+                    data-bs-dismiss="modal" [disabled]="!formCliente.valid">Actualizar</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+<div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -180,18 +206,24 @@
                 <form [formGroup]="formCliente">
                     <div class="" style="display: inline-block;">
                         <label id="lbEditar">¿Esta seguro que desea eliminar al cliente:</label>
-                        <input type="text" id="hdnEliminar" name="hdnEliminar" style="border: none; pointer-events: none; vertical-align: middle;" formControlName="nombre"/>
+                        <input type="text" id="hdnEliminar" name="hdnEliminar"
+                            style="border: none; pointer-events: none; vertical-align: middle;"
+                            formControlName="nombre" />
 
                         <label>?</label>
-                        <input type="hidden" id="idEli" name="hdnId" formControlName="id_cliente"/>
+                        <input type="hidden" id="idEli" name="hdnId" formControlName="id_cliente" />
 
                     </div>
-                </form>                
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" (click)="eliminarCliente()" data-bs-dismiss="modal">Eliminar</button>
+                <button type="submit" class="btn btn-primary" (click)="eliminarCliente()"
+                    data-bs-dismiss="modal">Eliminar</button>
             </div>
         </div>
     </div>
+</div>
+<div>
+    <app-footer></app-footer>
 </div>

@@ -20,21 +20,21 @@ export class UsuarioService {
   };
 
   getUsuario(): Observable<usuarioModel[]>{
-    return this.httpClient.get<usuarioModel[]>('http://localhost:8080/api/usuario/get').pipe(map(res => res));
+    return this.httpClient.get<usuarioModel[]>('http://localhost:8081/api/usuario').pipe(map(res => res));
   }
 
   postUsuario(request: any): Observable<any>{
     debugger;
-    return this.httpClient.post<any>('http://localhost:8080/api/usuario/post', request, this.httpOptions).pipe(map(res => res));
+    return this.httpClient.post<any>('http://localhost:8081/api/usuario/post', request, this.httpOptions).pipe(map(res => res));
   }
 
   putUsuario(request: any): Observable<any>{
     debugger;
-    return this.httpClient.put<any>('http://localhost:8080/api/usuario/put', request, this.httpOptions).pipe(map(res => res));
+    return this.httpClient.put<any>('http://localhost:8081/api/usuario/put', request, this.httpOptions).pipe(map(res => res));
   } 
 
   deleteUsuario(id_usuario: any): Observable<any>{
-    return this.httpClient.put<any>(`http://localhost:8080/api/usuario/delete/${id_usuario.id_usuario}`, this.httpOptions).pipe(map(res => res));
+    return this.httpClient.put<any>(`http://localhost:8081/api/usuario/delete/${id_usuario.id_usuario}`, this.httpOptions).pipe(map(res => res));
    }
 
 
